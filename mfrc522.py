@@ -7,7 +7,7 @@ import time
 import wiringpi2
 
 class MFRC522:
-  NRSTPD = 22
+  NRSTPD = 25
 
   MAX_LEN = 16
 
