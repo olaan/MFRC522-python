@@ -7,8 +7,7 @@ setup(
     description='A small class to interface with the NFC reader Module MFRC522',
     py_modules=['mfrc522'],
     install_requires=[
-        'SPI-py',
-        'wiringpi2',
+        'SPI-py'
     ],
     dependency_links=[
         'https://github.com/lthiery/SPI-Py/archive/master.tar.gz#egg=SPI-py',
