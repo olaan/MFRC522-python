@@ -367,7 +367,7 @@ class MFRC522:
         buf.append(crc[0])
         buf.append(crc[1])
         (status, backData, backLen) = self.MFRC522_ToCard(self.PCD_TRANSCEIVE,buf)
-        if status != self.MI_OK or backLen != 4) or (backData[0] & 0x0F) != 0x0A:
+        if status != self.MI_OK or backLen != 4 or (backData[0] & 0x0F) != 0x0A:
             print "Error while writing"
             status = self.MI_ERR
         if status == self.MI_OK:
