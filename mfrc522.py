@@ -4,10 +4,10 @@
 import spi
 import signal
 import time
-import wiringpi2
+import RPi.GPIO as GPIO
 
 class MFRC522:
-  NRSTPD = 25
+  NRSTPD = 22
 
   MAX_LEN = 16
 
@@ -109,9 +109,9 @@ class MFRC522:
 
   def __init__(self, dev='/dev/spidev0.0', spd=1000000):
     spi.openSPI(device=dev,speed=spd)
-    wiringpi2.wiringPiSetupSys()
-    wiringpi2.pinMode(self.NRSTPD, 1)
-    wiringpi2.digitalWrite(self.NRSTPD, 1)
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(self.NRSTPD)
+    GPIO.output(self.NRSTPD, 1)
     self.MFRC522_Init()
 
   def MFRC522_Reset(self):
@@ -386,7 +386,7 @@ class MFRC522:
         i = i+1
 
   def MFRC522_Init(self):
-    wiringpi2.digitalWrite(self.NRSTPD, 1)
+    GPIO.output(self.NRSTPD, 1)
     self.MFRC522_Reset();
 
     self.Write_MFRC522(self.TModeReg, 0x8D)
