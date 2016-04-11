@@ -336,11 +336,14 @@ class MFRC522:
     recvData.append(pOut[0])
     recvData.append(pOut[1])
     (status, backData, backLen) = self.MFRC522_ToCard(self.PCD_TRANSCEIVE, recvData)
-    if not(status == self.MI_OK):
-      print "Error while reading!"
-    i = 0
     if len(backData) == 16:
       print "Sector "+str(blockAddr)+" "+str(backData)
+    if status != self.MI_OK:
+      print "Error while reading!"
+      backData = []
+    return (status, backData)
+
+
 
   def MFRC522_Write(self, blockAddr, writeData):
     buff = []
@@ -364,10 +367,12 @@ class MFRC522:
         buf.append(crc[0])
         buf.append(crc[1])
         (status, backData, backLen) = self.MFRC522_ToCard(self.PCD_TRANSCEIVE,buf)
-        if not(status == self.MI_OK) or not(backLen == 4) or not((backData[0] & 0x0F) == 0x0A):
+        if status != self.MI_OK or backLen != 4) or (backData[0] & 0x0F) != 0x0A:
             print "Error while writing"
+            status = self.MI_ERR
         if status == self.MI_OK:
             print "Data written"
+        return status
 
   def MFRC522_DumpClassic1K(self, key, uid):
     i = 0
