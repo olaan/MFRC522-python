@@ -1,1 +1,4 @@
-https://github.com/lthiery/SPI-Py/archive/master.tar.gz#egg=SPI-py
+--index-url https://pypi.python.org/simple
+
+-e git+https://github.com/lthiery/SPI-Py#egg=SPI-Py-1.0
+-e .
